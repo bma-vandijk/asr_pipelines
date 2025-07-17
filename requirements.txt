@@ -1,0 +1,4 @@
+pyannote.audio
+pydub
+librosa
+soundfile 
