@@ -1,17 +1,18 @@
 import os
 import librosa
+import re
 
 def count_total_words(folder_path):
     """
-    Count the total number of words across all .txt files in a folder.
+    Count the total number of words and punctuation symbols across all .txt files in a folder.
     
     Args:
         folder_path (str): Path to the folder containing .txt files
         
     Returns:
-        int: Total word count across all .txt files
+        int: Total token count (words + punctuation symbols) across all .txt files
     """
-    total_words = 0
+    total_tokens = 0
     
     # Check if folder exists
     if not os.path.exists(folder_path):
@@ -25,12 +26,16 @@ def count_total_words(folder_path):
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     content = file.read()
+                    # Split on whitespace first, then split each word on punctuation
                     words = content.split()
-                    total_words += len(words)
+                    for word in words:
+                        # Split word on punctuation boundaries while keeping punctuation as separate tokens
+                        tokens = re.findall(r'\w+|[^\w\s]', word)
+                        total_tokens += len(tokens)
             except Exception as e:
                 print(f"Error reading {filename}: {e}")
     
-    return total_words
+    return total_tokens
 
 def get_total_audio_duration(folder_path):
     """

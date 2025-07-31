@@ -12,7 +12,7 @@ from typing import List, Dict, Tuple
 import jiwer
 
 
-def read_reference_transcripts(ref_path: str = "data/reference_transcripts/normalized") -> List[str]:
+def read_reference_transcripts(ref_path: str = os.path.join("data", "reference_transcripts", "orthographic")) -> List[str]:
     """
     Read reference transcripts from the specified folder.
     
@@ -33,7 +33,7 @@ def read_reference_transcripts(ref_path: str = "data/reference_transcripts/norma
     return transcripts
 
 
-def read_asr_transcripts(asr_path: str = "output/transcripts") -> Dict[str, List[str]]:
+def read_asr_transcripts(asr_path: str = os.path.join("output", "transcripts")) -> Dict[str, List[str]]:
     """
     Read ASR transcripts from subfolders containing different model outputs.
     
